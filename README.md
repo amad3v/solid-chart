@@ -5,7 +5,9 @@
 A lightweight, reactive [SolidJS](https://www.solidjs.com/) wrapper for [Chart.js 4.5+](https://www.chartjs.org/).
 
 This library provides a thin, high-performance layer over **Chart.js**, ensuring that chart instances stay in sync with Solid's fine-grained reactivity without the "Wrapper Tax" of older implementations.
+
 ---
+
 > 💡 **Important**
 
 > This project is based on the original work by [s0ftik3/solid-chartjs](https://github.com/s0ftik3/solid-chartjs). It has been modernised to fix race conditions related to DOM rendering and updated for compatibility with the latest **Chart.js**.
