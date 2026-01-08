@@ -19,19 +19,19 @@
   "private": false,
   "sideEffects": false,
   "type": "module",
-  "solid": "./src/index.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
-  "main": "./dist/solid-chart.umd.cjs",
+  "main": "./dist/solid-chart.js",
   "module": "./dist/solid-chart.js",
   "types": "./dist/solid-chart.d.ts",
+  "solid": "./src/index.ts",
   "exports": {
     ".": {
       "types": "./dist/solid-chart.d.ts",
       "solid": "./src/index.ts",
-      "import": "./dist/solid-chart.js",
-      "require": "./dist/solid-chart.umd.cjs"
+      "import": "./dist/solid-chart.js"
     }
   },
   "scripts": {
