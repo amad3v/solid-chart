@@ -6,6 +6,7 @@ import { unwrap } from 'solid-js/store';
 import { ChartProps } from './types';
 
 export const DefaultChart: Component<ChartProps> = (props) => {
+  let retryCount = 0;
   let canvasRef: HTMLCanvasElement | null;
   let chart: Chart | undefined;
 
@@ -23,6 +24,25 @@ export const DefaultChart: Component<ChartProps> = (props) => {
 
   const init = () => {
     if (!canvasRef) return;
+
+    // Is the canvas actually in the document?
+    if (!canvasRef.isConnected) {
+      retryCount++;
+
+      // Warn if it takes an abnormally long time (> 1 second)
+      // Assuming ~60fps, 60 retries is roughly 1 second.
+      if (retryCount === 60) {
+        // eslint-disable-next-line no-console
+        console.warn('Solid-Chart: Canvas layout is delayed. Still retrying...');
+      }
+
+      requestAnimationFrame(init);
+      return;
+    }
+
+    // Success! Reset counter and proceed
+    retryCount = 0;
+
     const ctx = canvasRef.getContext('2d') as ChartItem;
 
     // Clean unwrap and a safe copy of options

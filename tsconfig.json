@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ESNext", // Modernized for 2026
+    "target": "ESNext", 
     "module": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "jsx": "preserve",
@@ -27,6 +27,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"], // Add this line
+  "include": ["src"], 
   "exclude": ["node_modules", "dist"]
 }

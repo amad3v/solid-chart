@@ -132,3 +132,7 @@ This library is a modernised and refactored version of [solid-chartjs](https://g
 ## Disclaimer
 
 Please note: This library is by no means a professional or production-ready solution. It was developed out of necessity for personal projects, and it may not meet the quality or stability standards required for a fully-fledged production environment. It is intended for personal use and experimentation, and contributions are highly encouraged to improve its functionality and stability.
+
+## Changelog
+
+Detailed changes for each release are documented in the [CHANGELOG.md](./CHANGELOG.md).
