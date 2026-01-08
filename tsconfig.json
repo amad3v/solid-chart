@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ESNext", // Modernized for 2026
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "skipLibCheck": true,
+    "useDefineForClassFields": true,
+
+    /* Bundler mode */
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true, // Often needed for Chart.js
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": true,
+    "moduleDetection": "force",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": ["src", "example/src"], // Add this line
+  "exclude": ["node_modules", "dist"]
+}
