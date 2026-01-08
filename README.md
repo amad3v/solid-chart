@@ -24,9 +24,9 @@ This library provides a thin, high-performance layer over **Chart.js**, ensuring
 
 ## Installation
 ```bash
-pnpm add solid-chart chart.js
+pnpm add @amad3v/solid-chart chart.js
 # or
-npm install solid-chart chart.js
+npm install @amad3v/solid-chart chart.js
 ```
 
 ## Setup (Registration)
