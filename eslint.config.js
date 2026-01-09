@@ -1,28 +1,29 @@
 import js from '@eslint/js';
-import * as tsParser from '@typescript-eslint/parser';
-import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
-import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import importX from 'eslint-plugin-import-x';
 import solid from 'eslint-plugin-solid/configs/typescript';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
-import tseslint, { configs as tsConfigs } from 'typescript-eslint';
+import tseslint from 'typescript-eslint';
 
 /** @type {import('eslint').Linter.Config[]} */
-export default [
+export default defineConfig([
   js.configs.recommended,
-  ...tseslint.config(tsConfigs.recommended),
   {
-    files: ['**/*.{js,mjs,cjs,ts,tsx,jsx}'],
-    plugins: {
-      'simple-import-sort': simpleImportSort,
-    },
-    rules: {
-      'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
+    files: ['**/*.{ts,tsx}'],
+    ...solid,
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        project: 'tsconfig.json',
+      },
     },
   },
+  ...tseslint.configs.strict,
+  ...tseslint.configs.stylistic,
   {
     plugins: {
       '@typescript-eslint': tseslint.plugin,
+      'import-x': importX,
     },
     rules: {
       // TypeScript
@@ -35,18 +36,49 @@ export default [
           destructuredArrayIgnorePattern: '^_',
         },
       ],
+      '@typescript-eslint/no-explicit-any': 'warn',
+
+      // Import grouping
+      'import-x/order': [
+        'error',
+        {
+          groups: ['type', 'builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+          pathGroups: [
+            {
+              pattern: '{solid-js,solid-js/**}',
+              group: 'external',
+              position: 'before',
+            },
+            {
+              pattern: '@/**',
+              group: 'internal',
+            },
+          ],
+          pathGroupsExcludedImportTypes: ['type'],
+          'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
+
+      // This ensures type imports are separate from value imports
+      'import-x/no-duplicates': ['error', { 'prefer-inline': false }],
+
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          prefer: 'type-imports', // Enforces `import type {...}` for types
+          disallowTypeAnnotations: false,
+          fixStyle: 'separate-type-imports',
+        },
+      ],
     },
-  },
-  {
-    rules: {
-      'no-console': 'warn',
-    },
-  },
-  {
-    files: ['**/*.{js,mjs,cjs,ts,tsx,jsx}'],
-    ...solid,
     languageOptions: {
-      parser: tsParser,
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      parser: tseslint.parser,
       parserOptions: {
         project: ['./tsconfig.json', './example/tsconfig.json', './tsconfig.node.json'],
         tsconfigRootDir: import.meta.dirname,
@@ -58,61 +90,51 @@ export default [
     },
   },
   {
-    settings: {
-      'import/parsers': {
-        '@typescript-eslint/parser': ['.ts', '.tsx'],
-      },
-      'import/resolver-next': [
-        createTypeScriptImportResolver({
-          alwaysTryTypes: true,
-          project: 'tsconfig.json',
-        }),
-      ],
+    rules: {
+      'no-console': 'warn',
     },
   },
-  {
-    ignores: [
-      '**/*.log',
-      '**/.DS_Store',
-      '**/.vscode/settings.json',
-      '**/.history',
-      '**/.yarn',
-      '**/bazel-*',
-      '**/bazel-bin',
-      '**/bazel-out',
-      '**/bazel-qwik',
-      '**/bazel-testlogs',
-      '**/dist',
-      '**/dist-dev',
-      '**/lib',
-      '**/lib-types',
-      '**/etc',
-      '**/external',
-      '**/node_modules',
-      '**/temp',
-      '**/tsc-out',
-      '**/tsdoc-metadata.json',
-      '**/target',
-      '**/output',
-      '**/rollup.config.js',
-      '**/build',
-      '**/.cache',
-      '**/.vscode',
-      '**/.rollup.cache',
-      '**/dist',
-      '**/tsconfig.tsbuildinfo',
-      '**/vite.config.ts',
-      '**/*.spec.tsx',
-      '**/*.spec.ts',
-      '**/.netlify',
-      '**/pnpm-lock.yaml',
-      '**/package-lock.json',
-      '**/yarn.lock',
-      '**/server',
-      '**/postcss.config.js',
-      '**/prettier.config.js',
-      '**/tailwind.config.js',
-      '**/typedoc.js',
-    ],
-  },
-];
+  globalIgnores([
+    '**/*.log',
+    '**/.DS_Store',
+    '**/.vscode/settings.json',
+    '**/.history',
+    '**/.yarn',
+    '**/bazel-*',
+    '**/bazel-bin',
+    '**/bazel-out',
+    '**/bazel-qwik',
+    '**/bazel-testlogs',
+    '**/dist',
+    '**/dist-dev',
+    '**/lib',
+    '**/lib-types',
+    '**/etc',
+    '**/external',
+    '**/node_modules',
+    '**/temp',
+    '**/tsc-out',
+    '**/tsdoc-metadata.json',
+    '**/target',
+    '**/output',
+    '**/rollup.config.js',
+    '**/build',
+    '**/.cache',
+    '**/.vscode',
+    '**/.rollup.cache',
+    '**/dist',
+    '**/tsconfig.tsbuildinfo',
+    '**/vite.config.ts',
+    '**/*.spec.tsx',
+    '**/*.spec.ts',
+    '**/.netlify',
+    '**/pnpm-lock.yaml',
+    '**/package-lock.json',
+    '**/yarn.lock',
+    '**/server',
+    '**/postcss.config.js',
+    '**/prettier.config.js',
+    '**/tailwind.config.js',
+    '**/typedoc.js',
+  ]),
+]);

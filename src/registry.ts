@@ -1,3 +1,5 @@
+import type { ChartComponent } from 'chart.js';
+
 import {
   ArcElement,
   BarController,
@@ -5,7 +7,6 @@ import {
   BubbleController,
   CategoryScale,
   Chart,
-  ChartComponent,
   Colors,
   DoughnutController,
   Legend,

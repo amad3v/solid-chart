@@ -1,7 +1,7 @@
-import { Component } from 'solid-js';
+import type { ChartProps } from './types';
+import type { Component } from 'solid-js';
 
 import { DefaultChart } from './chart';
-import type { ChartProps } from './types';
 
 // Omit 'type' from props since these components define the type themselves
 export type TypedChartProps = Omit<ChartProps, 'type'>;

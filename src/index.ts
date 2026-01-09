@@ -12,6 +12,6 @@ export {
   registerRadar,
   registerScatter,
 } from './registry';
-export { Bar, Bubble, Doughnut, Line, Pie, PolarArea, Radar, Scatter } from './typedCharts';
 export type { TypedChartProps } from './typedCharts';
+export { Bar, Bubble, Doughnut, Line, Pie, PolarArea, Radar, Scatter } from './typedCharts';
 export type { ChartProps } from './types';

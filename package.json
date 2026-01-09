@@ -38,7 +38,8 @@
     "dev": "vite",
     "prepublishOnly": "pnpm build",
     "build": "rimraf ./dist && vite build",
-    "lint": "eslint ./src -c eslint.config.js --fix",
+    "lint": "eslint ./src -c eslint.config.js",
+    "lint:fix": "eslint ./src -c eslint.config.js --fix",
     "fmt": "prettier --write \"**/*.{mjs,cjs,js,jsx,ts,tsx,json}\"",
     "lint:fmt": "pnpm fmt && pnpm lint"
   },
@@ -55,7 +56,7 @@
     "@typescript-eslint/parser": "^8.52.0",
     "eslint": "^9.39.2",
     "eslint-import-resolver-typescript": "^4.4.4",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-import-x": "^4.16.1",
     "eslint-plugin-solid": "^0.14.5",
     "globals": "^17.0.0",
     "pathe": "^2.0.3",

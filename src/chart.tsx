@@ -1,9 +1,13 @@
-import { mergeRefs } from '@solid-primitives/refs';
-import { Chart, ChartData, ChartItem, ChartOptions, Plugin } from 'chart.js';
-import { Component, createEffect, mergeProps, on, onCleanup, onMount } from 'solid-js';
+import type { ChartProps } from './types';
+import type { ChartData, ChartItem, ChartOptions, Plugin } from 'chart.js';
+import type { Component } from 'solid-js';
+
+import { createEffect, mergeProps, on, onCleanup, onMount } from 'solid-js';
 import { unwrap } from 'solid-js/store';
 
-import { ChartProps } from './types';
+import { mergeRefs } from '@solid-primitives/refs';
+import { Chart } from 'chart.js';
+
 
 export const DefaultChart: Component<ChartProps> = (props) => {
   let retryCount = 0;
