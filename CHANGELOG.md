@@ -2,9 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2026-01-09
+
+### 🔧 Fixed
+
+**Component Integrity**: Fixed a bug where user-provided `type` prop would override the intended chart type in specific components (e.g., `<Line />`). Changed JSX prop order to `{...props} type="<chartType>"` to ensure the hardcoded always "wins".
+
 ## [1.0.2] - 2026-01-08
 
-Fixed: Added a silent `isConnected` guard to `init()` to prevent `getComputedStyle` crashes during async renders (e.g., TanStack Query or Solid Transitions).
+### 🔧 Fixed
+
+Added a silent `isConnected` guard to `init()` to prevent `getComputedStyle` crashes during async renders (e.g., TanStack Query or Solid Transitions).
 
 ## [1.0.1] - 2026-01-08
 
