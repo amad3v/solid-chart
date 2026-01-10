@@ -21,7 +21,9 @@
   "type": "module",
   "files": [
     "dist",
-    "src"
+    "src",
+    "README.md",
+    "LICENSE"
   ],
   "main": "./dist/solid-chart.js",
   "module": "./dist/solid-chart.js",
