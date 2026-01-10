@@ -1,0 +1,4 @@
+[MD013]
+severity = "info"
+line-length = 80
+reflow = true

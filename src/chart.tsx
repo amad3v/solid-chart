@@ -1,6 +1,6 @@
-import type { ChartProps } from './types';
 import type { ChartData, ChartItem, ChartOptions, Plugin } from 'chart.js';
 import type { Component } from 'solid-js';
+import type { ChartProps } from './types';
 
 import { createEffect, mergeProps, on, onCleanup, onMount } from 'solid-js';
 import { unwrap } from 'solid-js/store';
@@ -8,6 +8,7 @@ import { unwrap } from 'solid-js/store';
 import { mergeRefs } from '@solid-primitives/refs';
 import { Chart } from 'chart.js';
 
+const MAX_RETRIES = 300; // ~5 seconds of trying
 
 export const DefaultChart: Component<ChartProps> = (props) => {
   let retryCount = 0;
@@ -33,11 +34,17 @@ export const DefaultChart: Component<ChartProps> = (props) => {
     if (!canvasRef.isConnected) {
       retryCount++;
 
-      // Warn if it takes an abnormally long time (> 1 second)
+      // Warns every ~2 second if it's still failing
       // Assuming ~60fps, 60 retries is roughly 1 second.
-      if (retryCount === 60) {
+      if (retryCount % 120 === 0) {
         // eslint-disable-next-line no-console
         console.warn('Solid-Chart: Canvas layout is delayed. Still retrying...');
+      }
+
+      if (retryCount >= MAX_RETRIES) {
+        // eslint-disable-next-line no-console
+        console.error('Solid-Chart: Initialisation failed. Canvas never connected to DOM.');
+        return; // Stop retrying
       }
 
       requestAnimationFrame(init);
