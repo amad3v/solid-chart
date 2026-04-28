@@ -49,7 +49,7 @@ export const DefaultChart: Component<ChartProps> = (props) => {
       }
 
       rafId = requestAnimationFrame(init);
-    return;
+      return;
     }
 
     rafId = undefined;
@@ -97,7 +97,13 @@ export const DefaultChart: Component<ChartProps> = (props) => {
       () => merged.options,
       (newOptions) => {
         if (chart) {
-          chart.options = unwrap(newOptions);
+          const raw = unwrap(newOptions);
+          const opts = { ...raw };
+          if (merged.type !== 'radar' && opts.scales?.r) {
+            const { r: _, ...rest } = opts.scales;
+            opts.scales = rest;
+          }
+          chart.options = opts;
           chart.update();
         }
       },
