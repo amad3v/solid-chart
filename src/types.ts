@@ -1,5 +1,5 @@
 import type { Ref } from '@solid-primitives/refs';
-import type { ChartData, ChartOptions, ChartTypeRegistry, Plugin } from 'chart.js';
+import type { Chart, ChartData, ChartOptions, ChartTypeRegistry, Plugin } from 'chart.js';
 import type { JSXElement } from 'solid-js';
 
 /**
@@ -52,4 +52,9 @@ export interface ChartProps {
    * @default null
    */
   ref?: Ref<HTMLCanvasElement | null>;
+
+  /**
+   * update mode of the chart. defaults to `none`
+   */
+  updateMode?: Parameters<Chart['update']>[0];
 }

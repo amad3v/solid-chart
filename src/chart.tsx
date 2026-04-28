@@ -1,6 +1,6 @@
+import type { ChartProps } from './types';
 import type { ChartItem, ChartOptions, Plugin } from 'chart.js';
 import type { Component } from 'solid-js';
-import type { ChartProps } from './types';
 
 import { createEffect, mergeProps, on, onCleanup, onMount } from 'solid-js';
 import { unwrap } from 'solid-js/store';
@@ -24,6 +24,7 @@ export const DefaultChart: Component<ChartProps> = (props) => {
       data: { datasets: [] },
       options: { responsive: true } as ChartOptions,
       plugins: [] as Plugin[],
+      updateMode: 'none' as const,
     },
     props,
   );
@@ -85,7 +86,7 @@ export const DefaultChart: Component<ChartProps> = (props) => {
       (newData) => {
         if (chart) {
           chart.data = unwrap(newData);
-          chart.update('none'); // Use 'none' for better performance on data updates
+          chart.update(merged.updateMode); // Use 'none' for better performance on data updates
         }
       },
       { defer: true },
