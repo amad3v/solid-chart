@@ -73,7 +73,7 @@ export const DefaultChart: Component<ChartProps> = (props) => {
       type: merged.type,
       data: unwrap(merged.data), // unwrap stores before passing to external libs
       options: configOptions,
-      plugins: merged.plugins,
+      plugins: unwrap(merged.plugins),
     });
   };
 
