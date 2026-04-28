@@ -1,4 +1,4 @@
-import type { ChartData, ChartItem, ChartOptions, Plugin } from 'chart.js';
+import type { ChartItem, ChartOptions, Plugin } from 'chart.js';
 import type { Component } from 'solid-js';
 import type { ChartProps } from './types';
 
@@ -21,7 +21,7 @@ export const DefaultChart: Component<ChartProps> = (props) => {
       width: 512,
       height: 512,
       type: 'line' as const,
-      data: {} as ChartData,
+      data: { datasets: [] },
       options: { responsive: true } as ChartOptions,
       plugins: [] as Plugin[],
     },
