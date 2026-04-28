@@ -125,6 +125,8 @@ export const DefaultChart: Component<ChartProps> = (props) => {
       () => {
         if (chart) {
           chart.destroy();
+          // reset before re-init
+          retryCount = 0;
           init();
         }
       },
