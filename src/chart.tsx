@@ -14,6 +14,7 @@ export const DefaultChart: Component<ChartProps> = (props) => {
   let retryCount = 0;
   let canvasRef: HTMLCanvasElement | null;
   let chart: Chart | undefined;
+  let rafId: number | undefined;
 
   const merged = mergeProps(
     {
@@ -47,9 +48,11 @@ export const DefaultChart: Component<ChartProps> = (props) => {
         return; // Stop retrying
       }
 
-      requestAnimationFrame(init);
-      return;
+      rafId = requestAnimationFrame(init);
+    return;
     }
+
+    rafId = undefined;
 
     // Success! Reset counter and proceed
     retryCount = 0;
@@ -124,6 +127,7 @@ export const DefaultChart: Component<ChartProps> = (props) => {
   );
 
   onCleanup(() => {
+    if (rafId !== undefined) cancelAnimationFrame(rafId);
     chart?.destroy();
     // Standard cleanup for the ref
     mergeRefs(props.ref, null);
